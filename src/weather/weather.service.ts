@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { WeatherResponseDto } from './dto/weather-response.dto';
 
@@ -9,10 +8,7 @@ export class WeatherService {
   private readonly logger = new Logger(WeatherService.name);
   private readonly BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   async getWeather(city: string): Promise<WeatherResponseDto> {
     if (!city || typeof city !== 'string') {
@@ -20,10 +16,10 @@ export class WeatherService {
     }
 
     try {
-      const apiKey = this.configService.get<string>('OPENWEATHER_API_KEY');
-      
+      const apiKey = process.env.OPENWEATHER_API_KEY;
+
       if (!apiKey) {
-        throw new Error('Weather API key is not configured');
+        throw new Error('Weather API key is not configured in process.env');
       }
 
       const response = await firstValueFrom(
@@ -32,7 +28,7 @@ export class WeatherService {
             q: city,
             appid: apiKey,
             units: 'metric',
-            lang: 'en',
+            lang: 'ua',
           },
         }),
       );
