@@ -60,7 +60,7 @@ docker-compose up -d db
 npx prisma generate
 ```
 
-6. Run database migrations
+6. Run database migrations and Generate Prisma client
 ```bash
 npx prisma migrate dev
 ```
