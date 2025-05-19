@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { WeatherResponseDto } from './dto/weather-response.dto';
@@ -12,7 +17,9 @@ export class WeatherService {
 
   async getWeather(city: string): Promise<WeatherResponseDto> {
     if (!city || typeof city !== 'string') {
-      throw new BadRequestException('City name is required and must be a string');
+      throw new BadRequestException(
+        'City name is required and must be a string',
+      );
     }
 
     try {
