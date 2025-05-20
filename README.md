@@ -1,5 +1,7 @@
 # Weather Forecast API
 
+### Main flow of test case done. Sending mails mocked and displayed in console for demo
+
 ![Weather API](https://img.shields.io/badge/API-Weather%20Forecast-blue)
 ![NestJS](https://img.shields.io/badge/NestJS-11.0.1-red)
 ![Prisma](https://img.shields.io/badge/Prisma-6.8.2-blueviolet)
