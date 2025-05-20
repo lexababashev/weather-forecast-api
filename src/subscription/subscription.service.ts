@@ -1,7 +1,6 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
-import { v4 as uuidv4 } from 'uuid';
 import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
@@ -20,7 +19,7 @@ export class SubscriptionService {
       throw new ConflictException('Email already subscribed');
     }
 
-    const token = uuidv4();
+    const token = this.generateRandomToken(4);
     const subscription = await this.prisma.subscription.create({
       data: {
         email: dto.email,
@@ -107,5 +106,17 @@ export class SubscriptionService {
     console.log('========================================\n');
 
     return Promise.resolve();
+  }
+
+  private generateRandomToken(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    
+    return result;
   }
 }
