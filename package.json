@@ -15,7 +15,9 @@
     "seed": "prisma generate && ts-node prisma/seed.ts",
     "migrate:seed": "npm run migrate && npm run seed",
     "start:migrate": "npm run migrate && npm run start:dev",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

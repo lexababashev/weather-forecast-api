@@ -53,6 +53,12 @@ export class WeatherService {
   private handleWeatherError(error: any, city: string): never {
     this.logger.error(`Weather API error for ${city}: ${error.message}`);
 
+    if (error.message === 'Weather API key is not configured in process.env') {
+      throw new BadRequestException(
+        'Weather API key is not configured in process.env',
+      );
+    }
+
     if (error.response?.status === 404) {
       throw new NotFoundException(`City "${city}" not found`);
     }
