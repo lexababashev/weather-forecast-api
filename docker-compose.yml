@@ -16,16 +16,25 @@ services:
       timeout: 5s
       retries: 5
 
+  migration:
+    build: .
+    command: npm run migrate
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+
   app:
     build: .
     ports:
       - "3000:3000"
     depends_on:
-      db:
-        condition: service_healthy
+      migration:
+        condition: service_completed_successfully
     environment:
       DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?schema=public
-    command: npm run start:migrate
+    command: npm run start:prod
 
 volumes:
   postgres_data:

@@ -50,6 +50,12 @@ cp .env.example .env
 ```
 
 4. Start the database using Docker
+
+```bash
+# Start PostgreSQL database and auto apply migrations in Docker
+docker-compose up db migration --abort-on-container-exit
+```
+
 ```bash
 # Start PostgreSQL database in Docker
 docker-compose up -d db
