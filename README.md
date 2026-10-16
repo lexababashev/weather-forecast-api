@@ -36,7 +36,7 @@ A powerful Weather API application that allows users to subscribe to weather upd
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/weather-forecast-api.git
+git clone https://github.com/lexababashev/weather-forecast-api.git
 cd weather-forecast-api
 ```
 
